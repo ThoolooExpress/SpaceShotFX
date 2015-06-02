@@ -21,6 +21,11 @@ import javafx.stage.Stage;
 public class GameLoop extends AnimationTimer {
 
     SpriteGame handle;
+    
+    public GameLoop(SpriteGame handle) {
+        super();
+        this.handle = handle;
+    }
 
     @Override
     public void handle(long now) {
@@ -29,7 +34,7 @@ public class GameLoop extends AnimationTimer {
         handle.player.processInput(now);
 
         // add random enemies
-        //handle.spawnEnemies(true);
+        spawnEnemies(true);
 
         // movement
         handle.player.move();
@@ -73,9 +78,32 @@ public class GameLoop extends AnimationTimer {
             }
         }
     }
+private void spawnEnemies(boolean random) {
 
+        if (random && handle.rnd.nextInt(Settings.ENEMY_SPAWN_RANDOMNESS) != 0) {
+            return;
+        }
+
+        // image
+        Image image = handle.enemyImage;
+
+        // random speed
+        double speed = handle.rnd.nextDouble() * 1.0 + 2.0;
+
+        // x position range: enemy is always fully inside the screen, no part of it is outside
+        // y position: right on top of the view, so that it becomes visible with the next game iteration
+        double x = handle.rnd.nextDouble() * (Settings.SCENE_WIDTH - image.getWidth());
+        double y = -image.getHeight();
+
+        // create a sprite
+        Enemy enemy = new Enemy(handle.playfieldLayer, image, x, y, 90, 0, speed, 0, 1, 1);
+
+        // manage sprite
+        handle.enemies.add(enemy);
+
+    }
     public void checkCollisions() {
-
+        handle.collision = false;
 
         for (Enemy enemy : handle.enemies) {
             if (handle.player.collidesWith(enemy)) {
