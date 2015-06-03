@@ -29,17 +29,19 @@ public class SpriteGame extends Application {
     //TODO: put this in its own object, it clutters the main file
     Player player;
     List<Enemy> enemies = new ArrayList<>();
-    List<Projectile> bullets = new ArrayList<>();
+    List<Projectile> projectiles = new ArrayList<>();
 // The debug text that appears whenever a colision happens
     //TODO: remove this from final game
     Text debugCollisionText = new Text();
     //TODO: group this with sprite management in some way
     SpriteSheet health;
-    // Did a collision just happen? (for debug)
-    //TODO: find a prettier way to handle this
-    boolean collision = false;
+    Boolean debugCollision;
 // The main scene
     Scene scene;
+
+    public SpriteGame() {
+        this.debugCollision = new Boolean(false);
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -71,15 +73,19 @@ public class SpriteGame extends Application {
         primaryStage.setScene(scene);
 
 
-        createPlayers();
-        primaryStage.show();
-        GameLoop gameLoop = new GameLoop(this);
+        createPlayer();
+        LevelHandle thisLevel = new LevelHandle(img, player, enemies,
+                projectiles, debugCollision, hud);
+        GameLoop gameLoop = new GameLoop(thisLevel);
+        
+        // Start the game (don't do any setup after this)
+        primaryStage.show();      
         gameLoop.start();
 
     }
 
 
-    private void createPlayers() {
+    private void createPlayer() {
 
         // player input
         Input input = new Input(scene);
@@ -93,10 +99,10 @@ public class SpriteGame extends Application {
         double x = (Settings.SCENE_WIDTH - image.getWidth()) / 2.0;
         double y = Settings.SCENE_HEIGHT * 0.7;
 
-        // Create bulletKit, so the player can spawn bullets
+        // Create bulletKit, so the player can spawn projectiles
         PlayerHandle ph = new PlayerHandle();
         ph.bulletImage = img.getImg("laser");
-        ph.bullets = this.bullets;
+        ph.projectiles = this.projectiles;
         ph.playFieldLayer = this.playfieldLayer;
         // create player
         player = new Player(playfieldLayer, image, x, y, -90, 0, 0, 0,
@@ -110,10 +116,51 @@ public class SpriteGame extends Application {
     }
 
     /**
-     * The main handle for the game loop
+     * The handle for the level
      */
-    public class MainHandle {
+    public class LevelHandle {
 
+        public LevelHandle(ImgCache img, Player player, List<Enemy> enemies,
+                List<Projectile> projectiles, Boolean debugColision, HUD hud) {
+            this.img = img;
+            this.player = player;
+            this.enemies = enemies;
+            this.projectiles = projectiles;
+            this.debugColision = debugColision;
+            this.hud = hud;
+        }
+        private final ImgCache img;
+        private final Player player;
+        private final List<Enemy> enemies;
+        private final List<Projectile> projectiles;
+        private final HUD hud;
+        
+        private final Boolean debugColision;
+
+        public ImgCache getImg() {
+            return img;
+        }
+
+        public Player getPlayer() {
+            return player;
+        }
+
+        public List<Enemy> getEnemies() {
+            return enemies;
+        }
+
+        public List<Projectile> getProjectiles() {
+            return projectiles;
+        }
+
+        public Boolean getDebugColision() {
+            return debugColision;
+        }
+        
+        public HUD getHud() {
+            return hud;
+        }
+        
     }
 
     /**
@@ -122,7 +169,7 @@ public class SpriteGame extends Application {
     public class PlayerHandle {
 
         Image bulletImage;
-        List<Projectile> bullets;
+        List<Projectile> projectiles;
         Pane playFieldLayer;
     }
 

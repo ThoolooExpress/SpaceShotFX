@@ -105,7 +105,7 @@ public class Player extends Sprite {
             Projectile enemy = new Projectile(ph.playFieldLayer, image, x, y, 0, 0, speed, 0, 1, 1);
 
             // manage sprite
-            ph.bullets.add(enemy);
+            ph.projectiles.add(enemy);
             
             firstShot = false;
         }

@@ -17,7 +17,7 @@ import javafx.scene.text.TextBoundsType;
  * @author ThoolooExpress
  */
 public class HUD extends Pane {
-    // The debug collision text
+    // The debug debugCollision text
     Text debugCollisionText = new Text();
     // A refrence to the main class to get score information
     // TODO: replace this with a specialized handle
@@ -44,7 +44,7 @@ public class HUD extends Pane {
     }
     public void update() {
 
-        if (handle.collision) {
+        if (handle.debugCollision) {
             debugCollisionText.setText("Collision");
         } else {
             debugCollisionText.setText("");

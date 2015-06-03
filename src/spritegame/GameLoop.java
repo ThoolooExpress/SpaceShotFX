@@ -4,48 +4,64 @@ import java.util.Iterator;
 import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.scene.image.Image;
+import spritegame.SpriteGame.LevelHandle;
+import spritegame.resources.ImgCache;
 
 public class GameLoop extends AnimationTimer {
 
-    SpriteGame handle;
+    LevelHandle handle;
+    Player player;
+    List<Enemy> enemies;
+    List<Projectile> projectiles;
+    HUD hud;
+    ImgCache img;
+    Boolean debugCollision;
     
-    public GameLoop(SpriteGame handle) {
+    public GameLoop(LevelHandle handle) {
         super();
         this.handle = handle;
+        player = handle.getPlayer();
+        enemies = handle.getEnemies();
+        projectiles = handle.getProjectiles();
+        hud = handle.getHud();
+        img = handle.getImg();
+        debugCollision = handle.getDebugColision();
+        
+        
     }
 
     @Override
     public void handle(long now) {
 
         // player input
-        handle.player.processInput(now);
+        player.processInput(now);
 
         // add random enemies
-        spawnEnemies(true);
+        //spawnEnemies(true);
 
         // movement
-        handle.player.move();
-        handle.enemies.forEach(sprite -> sprite.move());
-        handle.bullets.forEach(sprite -> sprite.move());
+        player.move();
+        enemies.forEach(sprite -> sprite.move());
+        projectiles.forEach(sprite -> sprite.move());
 
         // check collisions
         checkCollisions();
 
         // update sprites in scene
-        handle.player.updateUI();
-        handle.enemies.forEach(sprite -> sprite.updateUI());
-        handle.bullets.forEach(sprite -> sprite.updateUI());
+        player.updateUI();
+        enemies.forEach(sprite -> sprite.updateUI());
+        projectiles.forEach(sprite -> sprite.updateUI());
 
         // check if sprite can be removed
-        handle.enemies.forEach(sprite -> sprite.checkRemovability());
-        handle.bullets.forEach(sprite -> sprite.checkRemovability());
+        enemies.forEach(sprite -> sprite.checkRemovability());
+        projectiles.forEach(sprite -> sprite.checkRemovability());
 
         // remove removables from list, layer, etc
-        removeSprites(handle.enemies);
-        removeSprites(handle.bullets);
+        removeSprites(enemies);
+        removeSprites(projectiles);
 
         // update score, health, etc
-        handle.hud.update();
+        hud.update();
     }
 
 
@@ -65,42 +81,42 @@ public class GameLoop extends AnimationTimer {
             }
         }
     }
-private void spawnEnemies(boolean random) {
-
-        if (random && handle.rnd.nextInt(Settings.ENEMY_SPAWN_RANDOMNESS) != 0) {
-            return;
-        }
-
-        // image
-        Image image = handle.img.getImg("enemy");
-
-        // random speed
-        double speed = handle.rnd.nextDouble() * 1.0 + 2.0;
-
-        // x position range: enemy is always fully inside the screen, no part of it is outside
-        // y position: right on top of the view, so that it becomes visible with the next game iteration
-        double x = handle.rnd.nextDouble() * (Settings.SCENE_WIDTH - image.getWidth());
-        double y = -image.getHeight();
-
-        // create a sprite
-        Enemy enemy = new Enemy(handle.playfieldLayer, image, x, y, 90, 0, speed, 0, 1, 1);
-
-        // manage sprite
-        handle.enemies.add(enemy);
-
-    }
+//private void spawnEnemies(boolean random) {
+//
+//        if (random && handle.rnd.nextInt(Settings.ENEMY_SPAWN_RANDOMNESS) != 0) {
+//            return;
+//        }
+//
+//        // image
+//        Image image = handle.img.getImg("enemy");
+//
+//        // random speed
+//        double speed = handle.rnd.nextDouble() * 1.0 + 2.0;
+//
+//        // x position range: enemy is always fully inside the screen, no part of it is outside
+//        // y position: right on top of the view, so that it becomes visible with the next game iteration
+//        double x = handle.rnd.nextDouble() * (Settings.SCENE_WIDTH - image.getWidth());
+//        double y = -image.getHeight();
+//
+//        // create a sprite
+//        Enemy enemy = new Enemy(handle.playfieldLayer, image, x, y, 90, 0, speed, 0, 1, 1);
+//
+//        // manage sprite
+//        handle.enemies.add(enemy);
+//
+//    }
     public void checkCollisions() {
-        handle.collision = false;
+        debugCollision = false;
 
-        for (Enemy enemy : handle.enemies) {
-            if (handle.player.collidesWith(enemy)) {
-                handle.collision = true;
+        for (Enemy enemy : enemies) {
+            if (player.collidesWith(enemy)) {
+                debugCollision = true;
             }
         }
-        for (Projectile bullet : handle.bullets) {
-            for (Enemy enemy : handle.enemies) {
+        for (Projectile bullet : projectiles) {
+            for (Enemy enemy : enemies) {
                 if (bullet.collidesWith(enemy)) {
-                    handle.collision = true;
+                    debugCollision = true;
                     bullet.attack(enemy);
                 }
             }
