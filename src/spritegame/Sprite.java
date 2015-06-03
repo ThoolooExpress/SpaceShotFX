@@ -31,7 +31,8 @@ public abstract class Sprite {
 
     boolean canMove = true;
 
-    public Sprite(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
+    public Sprite(Pane layer, Image image, double x, double y, double r,
+            double dx, double dy, double dr, double health, double damage) {
 
         this.layer = layer;
         this.image = image;
@@ -158,7 +159,7 @@ public abstract class Sprite {
     }
 
     public boolean isAlive() {
-        return Double.compare(health, 0) > 0;
+        return health > 0;
     }
 
     public ImageView getView() {

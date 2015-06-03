@@ -2,7 +2,6 @@ package spritegame;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import spritegame.Sprite;
 
 public class Enemy extends Sprite {
     public Enemy(Pane layer, Image image, double x, double y, double r, double dx,
