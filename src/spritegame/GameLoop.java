@@ -1,22 +1,9 @@
 package spritegame;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
-import javafx.stage.Stage;
 
 public class GameLoop extends AnimationTimer {
 
@@ -58,7 +45,7 @@ public class GameLoop extends AnimationTimer {
         removeSprites(handle.bullets);
 
         // update score, health, etc
-        handle.updateScore();
+        handle.hud.update();
     }
 
 

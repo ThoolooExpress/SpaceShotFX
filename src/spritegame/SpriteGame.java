@@ -22,7 +22,7 @@ public class SpriteGame extends Application {
     Random rnd = new Random();
 // Layers
     Pane playfieldLayer;
-    Pane scoreLayer;
+    HUD hud;
 // Image Cache 
     ImgCache img = new ImgCache();
     //TODO: Move this to its own object
@@ -58,17 +58,17 @@ public class SpriteGame extends Application {
 
         // create layers
         playfieldLayer = new Pane();
-        scoreLayer = new Pane();
+        //TODO: replace this with a real handle
+        hud = new HUD(this);
 
         root.getChildren().add(playfieldLayer);
-        root.getChildren().add(scoreLayer);
+        root.getChildren().add(hud);
 
         scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
 
         primaryStage.setScene(scene);
 
 
-        createScoreLayer();
         createPlayers();
         primaryStage.show();
         GameLoop gameLoop = new GameLoop(this);
@@ -76,27 +76,6 @@ public class SpriteGame extends Application {
 
     }
 
-
-    private void createScoreLayer() {
-
-        debugCollisionText.setFont(Font.font(null, FontWeight.BOLD, 64));
-        debugCollisionText.setStroke(Color.BLACK);
-        debugCollisionText.setFill(Color.RED);
-
-        scoreLayer.getChildren().add(debugCollisionText);
-
-//        scoreLayer.getChildren().add(health);
-
-        // TODO: quick-hack to ensure the text is centered; usually you don't have that; instead you have a health bar on top
-        debugCollisionText.setText("Collision");
-        double x = (Settings.SCENE_WIDTH - debugCollisionText.getBoundsInLocal().getWidth()) / 2;
-        double y = (Settings.SCENE_HEIGHT - debugCollisionText.getBoundsInLocal().getHeight()) / 2;
-        debugCollisionText.relocate(x, y);
-        debugCollisionText.setText("");
-
-        debugCollisionText.setBoundsType(TextBoundsType.VISUAL);
-
-    }
 
     private void createPlayers() {
 
@@ -122,17 +101,6 @@ public class SpriteGame extends Application {
                 Settings.PLAYER_SHIP_HEALTH, 0, Settings.PLAYER_SHIP_SPEED,
                 input, ph);
 
-    }
-
-
-
-    public void updateScore() {
-
-        if (collision) {
-            debugCollisionText.setText("Collision");
-        } else {
-            debugCollisionText.setText("");
-        }
     }
 
     public static void main(String[] args) {
