@@ -20,7 +20,7 @@ public class ImgCache {
     final ImgData[] manifest = {
         img("enemy", "enemy.png", 100, 100),
         img("player", "player.png", 100, 100),
-        img("laser", "laser.png", 30, 30),
+        img("laser", "laser.png", 20, 80),
         img("healthbar", "healthbar.png", 600, 17)
     };
     Map<String, ImgData> manifestMap = new HashMap<>();

@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import spritegame.resources.ImgCache;
+import java.awt.Toolkit;
 
 public class SpriteGame extends Application {
 
@@ -45,7 +46,6 @@ public class SpriteGame extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         Group root = new Group();
 //        
 //        health = SpriteTemplates.healthBar(
@@ -56,34 +56,31 @@ public class SpriteGame extends Application {
         // create layers
         //  TODO: make this for each level not the whole game
         playfieldLayer = new Pane();
+
         playfieldLayer.setPrefSize(Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
+        // If we're dealing with an ancient screen, scale it down
         // Set background on playfieldLayer
         BackgroundFill fill = new BackgroundFill(Color.AQUA, null, null);
         Background bg = new Background(fill);
         playfieldLayer.backgroundProperty().set(bg);
 
-
         //TODO: replace this with a real handle
         hud = new HUD(this);
         root.getChildren().add(playfieldLayer);
-        root.getChildren().add(hud);
-
         scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
 
         primaryStage.setScene(scene);
-
 
         createPlayer();
         LevelHandle thisLevel = new LevelHandle(img, player, enemies,
                 projectiles, debugCollision, hud);
         GameLoop gameLoop = new GameLoop(thisLevel);
-        
+
         // Start the game (don't do any setup after this)
-        primaryStage.show();      
+        primaryStage.show();
         gameLoop.start();
 
     }
-
 
     private void createPlayer() {
 
@@ -134,7 +131,7 @@ public class SpriteGame extends Application {
         private final List<Enemy> enemies;
         private final List<Projectile> projectiles;
         private final HUD hud;
-        
+
         private final Boolean debugColision;
 
         public ImgCache getImg() {
@@ -156,11 +153,11 @@ public class SpriteGame extends Application {
         public Boolean getDebugColision() {
             return debugColision;
         }
-        
+
         public HUD getHud() {
             return hud;
         }
-        
+
     }
 
     /**
