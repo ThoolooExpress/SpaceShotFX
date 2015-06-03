@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public abstract class SpriteBase {
+public abstract class Sprite {
 
     Image image;
     ImageView imageView;
@@ -31,7 +31,7 @@ public abstract class SpriteBase {
 
     boolean canMove = true;
 
-    public SpriteBase(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
+    public Sprite(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
 
         this.layer = layer;
         this.image = image;
@@ -189,7 +189,7 @@ public abstract class SpriteBase {
     }
 
     // TODO: per-pixel-collision
-    public boolean collidesWith( SpriteBase otherSprite) {
+    public boolean collidesWith( Sprite otherSprite) {
         // Circular distance colider (normal distance formula)
         return ( Math.sqrt(
                 (otherSprite.getCenterX()-this.getCenterX())*(otherSprite.getCenterX()-this.getCenterX())
@@ -202,7 +202,7 @@ public abstract class SpriteBase {
      * Reduce health by the amount of damage that the given sprite can inflict
      * @param sprite
      */
-    public void getDamagedBy( SpriteBase sprite) {
+    public void getDamagedBy( Sprite sprite) {
         health -= sprite.getDamage();
     }
 

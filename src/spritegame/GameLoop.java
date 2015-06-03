@@ -49,9 +49,9 @@ public class GameLoop extends AnimationTimer {
     }
 
 
-    private void removeSprites(List<? extends SpriteBase> spriteList) {
-        Iterator<? extends SpriteBase> iter = spriteList.iterator();
-        SpriteBase sprite;
+    private void removeSprites(List<? extends Sprite> spriteList) {
+        Iterator<? extends Sprite> iter = spriteList.iterator();
+        Sprite sprite;
         while (iter.hasNext()) {
             sprite = iter.next();
 

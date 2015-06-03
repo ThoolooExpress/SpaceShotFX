@@ -2,10 +2,10 @@ package spritegame;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import spritegame.SpriteBase;
+import spritegame.Sprite;
 import spritegame.SpriteGame.PlayerHandle;
 
-public class Player extends SpriteBase {
+public class Player extends Sprite {
 
     double playerShipMinX;
     double playerShipMaxX;
