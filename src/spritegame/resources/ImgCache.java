@@ -34,6 +34,8 @@ public class ImgCache {
 
     public void load(String ID) {
         if (!images.containsKey(ID)) {
+            System.out.println("Disk Hit!");
+            System.out.println("Getting " + ID);
             ImgData top = manifestMap.get(ID);
             images.put(ID,
                     new Image(this.getClass().getResourceAsStream(top.path),

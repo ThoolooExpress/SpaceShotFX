@@ -87,7 +87,6 @@ public class Player extends Sprite {
     }
 
     private void shootMain(long now) {
-        System.out.println(now + " " + (now - lastShot));
         if (firstShot || now - lastShot > 600 * 1000000) {
             System.out.println("shooting");
 

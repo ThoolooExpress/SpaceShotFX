@@ -24,10 +24,6 @@ public class SpriteGame extends Application {
     HUD hud;
 // Image Cache 
     ImgCache img = new ImgCache();
-    //TODO: Move this to its own object
-    Image playerImage;
-    Image enemyImage;
-    Image bulletImage;
 
 // Sprite Management
     //TODO: put this in its own object, it clutters the main file

@@ -5,7 +5,8 @@ import javafx.scene.layout.Pane;
 import spritegame.Sprite;
 
 public class Enemy extends Sprite {
-    public Enemy(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
+    public Enemy(Pane layer, Image image, double x, double y, double r, double dx,
+            double dy, double dr, double health, double damage) {
         super(layer, image, x, y, r, dx, dy, dr, health, damage);
         super.collisionRadius = 45;
     }
