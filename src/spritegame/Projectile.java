@@ -4,8 +4,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import spritegame.Sprite;
 
-public class Bomb extends Sprite {
-    public Bomb(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
+public class Projectile extends Sprite {
+    public Projectile(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
         super(layer, image, x, y, r, dx, dy, dr, health, damage);
         super.collisionRadius = 15;
     }

@@ -33,7 +33,7 @@ public class SpriteGame extends Application {
     //TODO: put this in its own object, it clutters the main file
     Player player;
     List<Enemy> enemies = new ArrayList<>();
-    List<Bomb> bullets = new ArrayList<>();
+    List<Projectile> bullets = new ArrayList<>();
 // The debug text that appears whenever a colision happens
     //TODO: remove this from final game
     Text debugCollisionText = new Text();
@@ -126,7 +126,7 @@ public class SpriteGame extends Application {
     public class PlayerHandle {
 
         Image bulletImage;
-        List<Bomb> bullets;
+        List<Projectile> bullets;
         Pane playFieldLayer;
     }
 

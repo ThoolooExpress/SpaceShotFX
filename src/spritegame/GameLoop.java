@@ -97,7 +97,7 @@ private void spawnEnemies(boolean random) {
                 handle.collision = true;
             }
         }
-        for (Bomb bullet : handle.bullets) {
+        for (Projectile bullet : handle.bullets) {
             for (Enemy enemy : handle.enemies) {
                 if (bullet.collidesWith(enemy)) {
                     handle.collision = true;

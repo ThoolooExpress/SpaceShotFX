@@ -103,7 +103,7 @@ public class Player extends Sprite {
             double y = this.getCenterY();
 
             // create a sprite
-            Bomb enemy = new Bomb(ph.playFieldLayer, image, x, y, 0, 0, speed, 0, 1, 1);
+            Projectile enemy = new Projectile(ph.playFieldLayer, image, x, y, 0, 0, speed, 0, 1, 1);
 
             // manage sprite
             ph.bullets.add(enemy);
