@@ -1,10 +1,8 @@
 package spritegame;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Group;
@@ -17,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
+import spritegame.resources.ImgCache;
 
 public class SpriteGame extends Application {
 
@@ -25,6 +24,7 @@ public class SpriteGame extends Application {
     Pane playfieldLayer;
     Pane scoreLayer;
 // Image Cache 
+    ImgCache img = new ImgCache();
     //TODO: Move this to its own object
     Image playerImage;
     Image enemyImage;
@@ -67,57 +67,15 @@ public class SpriteGame extends Application {
 
         primaryStage.setScene(scene);
 
-        loadGame();
 
         createScoreLayer();
         createPlayers();
         primaryStage.show();
-        AnimationTimer gameLoop = new AnimationTimer() {
-
-            @Override
-            public void handle(long now) {
-
-                // player input
-                player.processInput(now);
-
-                // add random enemies
-                spawnEnemies(true);
-
-                // movement
-                player.move();
-                enemies.forEach(sprite -> sprite.move());
-                bullets.forEach(sprite -> sprite.move());
-
-                // check collisions
-                checkCollisions();
-
-                // update sprites in scene
-                player.updateUI();
-                enemies.forEach(sprite -> sprite.updateUI());
-                bullets.forEach(sprite -> sprite.updateUI());
-
-                // check if sprite can be removed
-                enemies.forEach(sprite -> sprite.checkRemovability());
-                bullets.forEach(sprite -> sprite.checkRemovability());
-
-                // remove removables from list, layer, etc
-                removeSprites(enemies);
-                removeSprites(bullets);
-
-                // update score, health, etc
-                updateScore();
-            }
-
-        };
+        GameLoop gameLoop = new GameLoop(this);
         gameLoop.start();
 
     }
 
-    private void loadGame() {
-        playerImage = new Image(this.getClass().getResourceAsStream("resources/player.png"), 100, 100, true, true);
-        enemyImage = new Image(this.getClass().getResourceAsStream("resources/enemy.png"), 100, 100, true, true);
-        bulletImage = new Image(this.getClass().getResourceAsStream("resources/laser.png"), 30, 30, true, true);
-    }
 
     private void createScoreLayer() {
 
@@ -148,7 +106,7 @@ public class SpriteGame extends Application {
         // register input listeners
         input.addListeners(); // TODO: remove listeners on game over
 
-        Image image = playerImage;
+        Image image = img.getImg("player");
 
         // center horizontally, position at 70% vertically
         double x = (Settings.SCENE_WIDTH - image.getWidth()) / 2.0;
@@ -156,7 +114,7 @@ public class SpriteGame extends Application {
 
         // Create bulletKit, so the player can spawn bullets
         PlayerHandle ph = new PlayerHandle();
-        ph.bulletImage = this.bulletImage;
+        ph.bulletImage = img.getImg("laser");
         ph.bullets = this.bullets;
         ph.playFieldLayer = this.playfieldLayer;
         // create player
@@ -166,66 +124,7 @@ public class SpriteGame extends Application {
 
     }
 
-    private void spawnEnemies(boolean random) {
 
-        if (random && rnd.nextInt(Settings.ENEMY_SPAWN_RANDOMNESS) != 0) {
-            return;
-        }
-
-        // image
-        Image image = enemyImage;
-
-        // random speed
-        double speed = rnd.nextDouble() * 1.0 + 2.0;
-
-        // x position range: enemy is always fully inside the screen, no part of it is outside
-        // y position: right on top of the view, so that it becomes visible with the next game iteration
-        double x = rnd.nextDouble() * (Settings.SCENE_WIDTH - image.getWidth());
-        double y = -image.getHeight();
-
-        // create a sprite
-        Enemy enemy = new Enemy(playfieldLayer, image, x, y, 90, 0, speed, 0, 1, 1);
-
-        // manage sprite
-        enemies.add(enemy);
-
-    }
-
-    private void removeSprites(List<? extends SpriteBase> spriteList) {
-        Iterator<? extends SpriteBase> iter = spriteList.iterator();
-        SpriteBase sprite;
-        while (iter.hasNext()) {
-            sprite = iter.next();
-
-            if (sprite.isRemovable()) {
-
-                // remove from layer
-                sprite.removeFromLayer();
-
-                // remove from list
-                iter.remove();
-            }
-        }
-    }
-
-    public void checkCollisions() {
-
-        collision = false;
-
-        for (Enemy enemy : enemies) {
-            if (player.collidesWith(enemy)) {
-                collision = true;
-            }
-        }
-        for (Bomb bullet : bullets) {
-            for (Enemy enemy : enemies) {
-                if (bullet.collidesWith(enemy)) {
-                    collision = true;
-                    bullet.attack(enemy);
-                }
-            }
-        }
-    }
 
     public void updateScore() {
 

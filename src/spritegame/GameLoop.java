@@ -85,7 +85,7 @@ private void spawnEnemies(boolean random) {
         }
 
         // image
-        Image image = handle.enemyImage;
+        Image image = handle.img.getImg("enemy");
 
         // random speed
         double speed = handle.rnd.nextDouble() * 1.0 + 2.0;
