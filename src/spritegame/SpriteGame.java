@@ -8,12 +8,11 @@ import static javafx.application.Application.launch;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import spritegame.resources.ImgCache;
 
@@ -57,10 +56,17 @@ public class SpriteGame extends Application {
 //        );
 
         // create layers
+        //  TODO: make this for each level not the whole game
         playfieldLayer = new Pane();
+        playfieldLayer.setPrefSize(Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
+        // Set background on playfieldLayer
+        BackgroundFill fill = new BackgroundFill(Color.AQUA, null, null);
+        Background bg = new Background(fill);
+        playfieldLayer.backgroundProperty().set(bg);
+
+
         //TODO: replace this with a real handle
         hud = new HUD(this);
-
         root.getChildren().add(playfieldLayer);
         root.getChildren().add(hud);
 
