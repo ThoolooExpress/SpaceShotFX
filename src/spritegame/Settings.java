@@ -2,8 +2,8 @@ package spritegame;
 
 public class Settings {
 
-    public static double SCENE_WIDTH = 800;
-    public static double SCENE_HEIGHT = 1600;
+    public static double SCENE_WIDTH = 1920;
+    public static double SCENE_HEIGHT = 1080;
 
     public static double PLAYER_SHIP_SPEED = 4.0;
     public static double PLAYER_SHIP_HEALTH = 100.0;

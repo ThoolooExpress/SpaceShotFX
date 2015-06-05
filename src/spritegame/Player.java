@@ -3,7 +3,7 @@ package spritegame;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import spritegame.Sprite;
-import spritegame.SpriteGame.PlayerHandle;
+import spritegame.TestLevel.PlayerHandle;
 
 public class Player extends Sprite {
 
@@ -94,7 +94,11 @@ public class Player extends Sprite {
             Image image = ph.bulletImage;
 
             // bullet speed (vertical)
-            double speed = -6;
+            double minSpeed = -6;
+            double speed = -6 + dy;
+            if (speed > minSpeed ) {
+                speed = minSpeed;
+            }
 
         // x position range: enemy is always fully inside the screen, no part of it is outside
             // y position: right on top of the view, so that it becomes visible with the next game iteration
@@ -102,7 +106,7 @@ public class Player extends Sprite {
             double y = this.getCenterY();
 
             // create a sprite
-            Projectile enemy = new Projectile(ph.playFieldLayer, image, x, y, 0, 0, speed, 0, 1, 1);
+            Projectile enemy = new Projectile(ph.playFieldLayer, image, x, y, 0, dx, speed, 0, 50, 50);
 
             // manage sprite
             ph.projectiles.add(enemy);

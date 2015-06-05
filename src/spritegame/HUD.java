@@ -20,11 +20,11 @@ public class HUD extends Pane {
     // The debug debugCollision text
     Text debugCollisionText = new Text();
     // A refrence to the main class to get score information
-    // TODO: replace this with a specialized handle
-    SpriteGame handle;
-    public HUD(SpriteGame handle) {
+    // TODO: replace this with a specialized levelHandle
+    Level levelHandle;
+    public HUD(Level levelHandle) {
         super();
-        this.handle = handle;
+        this.levelHandle = levelHandle;
         debugCollisionText.setFont(Font.font(null, FontWeight.BOLD, 64));
         debugCollisionText.setStroke(Color.BLACK);
         debugCollisionText.setFill(Color.RED);
@@ -44,11 +44,10 @@ public class HUD extends Pane {
     }
     public void update() {
 
-        if (handle.debugCollision) {
-            debugCollisionText.setText("Collision");
-        } else {
-            debugCollisionText.setText("");
-        }
+//        if (levelHandle.getDebugCollision()) {
+//            debugCollisionText.setText("Collision");
+//        } else {
+//            debugCollisionText.setText("");
+//        }
     }
-    
 }

@@ -12,15 +12,18 @@ public class Projectile extends Sprite {
 
     @Override
     public void checkRemovability() {
-
-        if( getY() < 0) {
+        if( getY() < -40) {
             setRemovable(true);
             System.out.println("Bullet Removed");
         }
     }
     
     public void attack(Enemy enemy) {
+        
         enemy.getDamagedBy(this);
+        System.out.println("Bullet " + this.hashCode() + " attacking " +
+                enemy.hashCode() + " Which has " + enemy.getHealth() + "hp");
+        enemy.getHealth();
         setRemovable(true);
     }
     @Override
