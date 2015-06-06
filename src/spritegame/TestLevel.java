@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
  * @deprecated 2015-06-05 We should have multiple levels
  * @author ThoolooExpress
  */
+// TODO : make this launch using the regular level format
 public class TestLevel extends Level {
 
     public TestLevel(GameManager gameManager) {

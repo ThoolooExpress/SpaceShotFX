@@ -4,7 +4,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import spritegame.Sprite;
 import spritegame.TestLevel.PlayerHandle;
-
+/**
+ * Defines the player's ship
+ * @author ThoolooExpress
+ */
 public class Player extends Sprite {
 
     double playerShipMinX;
@@ -46,7 +49,11 @@ public class Player extends Sprite {
         playerShipMaxY = Settings.SCENE_HEIGHT - image.getHeight() / 2.0;
 
     }
-
+    /**
+     * Deals with input
+     * @param now - the current time in nanoseconds
+     */
+    // TODO : abstract away shooting and physics
     public void processInput(long now) {
 
         // ------------------------------------
@@ -85,7 +92,11 @@ public class Player extends Sprite {
         checkBounds();
 
     }
-
+    /**
+     * Shoots the main gun
+     * @param now - the current time in milliseconds
+     */
+    // TODO : abstract away and modularize weapons
     private void shootMain(long now) {
         if (firstShot || now - lastShot > 600 * 1000000) {
             System.out.println("shooting");
@@ -94,7 +105,7 @@ public class Player extends Sprite {
             Image image = ph.bulletImage;
 
             // bullet speed (vertical)
-            double minSpeed = -6;
+            double minSpeed = -10;
             double speed = -6 + dy;
             if (speed > minSpeed ) {
                 speed = minSpeed;
@@ -115,7 +126,11 @@ public class Player extends Sprite {
         }
         lastShot = now;
     }
-
+    /**
+     * Checks to see if the ship is within its bounds
+     */
+    
+    // TODO : Make this less retarded
     private void checkBounds() {
 
         // vertical

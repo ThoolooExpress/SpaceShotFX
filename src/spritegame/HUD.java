@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 
 /**
- *
+ * Defines the HUD layer, for use during gameplay
  * @author ThoolooExpress
  */
 public class HUD extends Pane {

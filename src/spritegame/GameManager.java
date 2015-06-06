@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 import spritegame.resources.ImgCache;
 
 /**
- *
+ * Handles transitions between levels  / scenes / menus, holds data that should
+ * persist for the session
  * @author ThoolooExpress
  */
 public class GameManager {

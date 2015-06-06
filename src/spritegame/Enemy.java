@@ -3,6 +3,11 @@ package spritegame;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
+/**
+ * Defines an enemy
+ * @author ThoolooExpress
+ */
+// TODO : we need some way to procedurally generate enimies better
 public class Enemy extends Sprite {
     public Enemy(Pane layer, Image image, double x, double y, double r, double dx,
             double dy, double dr, double health, double damage) {

@@ -13,7 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 
 /**
- *
+ * The superclass for all levels
  * @author ThoolooExpress
  */
 public abstract class Level {

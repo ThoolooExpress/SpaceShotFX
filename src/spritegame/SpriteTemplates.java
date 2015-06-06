@@ -11,8 +11,10 @@ import spritegame.SpriteSheet.Offsets;
 
 
 /**
- *
+ * Holds sprite templates
  * @author ThoolooExpress
+ * @deprecated 2015-6-6 - There's gotta be a better way...
+ * 
  */
 public class SpriteTemplates {
     public static SpriteSheet healthBar(Image image) {

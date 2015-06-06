@@ -1,21 +1,16 @@
 package spritegame;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import javafx.application.Application;
-import static javafx.application.Application.launch;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import spritegame.resources.ImgCache;
 
+/**
+ * Was supposed to hold the game state, but we ended up doing it a different way
+ * @deprecated 2015-6-6 Really should just be deleted now...
+ * @author ThoolooExpress
+ */
 public abstract class State {
     // The start method for this state
     public abstract void start(Stage mainStage);

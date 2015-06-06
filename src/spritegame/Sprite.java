@@ -4,6 +4,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+/**
+ * Defines a sprite, the most basic for all entities.  Includes the image
+ * representation of the sprite, and its position in the game world.
+ * @author ThoolooExpress
+ */
 public abstract class Sprite {
 
     Image image;

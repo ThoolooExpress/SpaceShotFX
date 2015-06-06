@@ -10,12 +10,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- *
+ * Defines a sprite sheet, which can be used for animations, or to easily switch
+ * graphics.  Intended to substitute for ImageView
  * @author ThoolooExpress
  */
 public class SpriteSheet extends ImageView {
     Image sheet;
     
+    /**
+     * Defines the coordinates of one frame
+     */
     public static class Frame {
         int x;
         int y;
@@ -28,6 +32,9 @@ public class SpriteSheet extends ImageView {
     int frameWidth;
     int frameHeight;
     
+    /**
+     * Defines the offsets for either one frame or the whole sheet
+     */
     public static class Offsets {
         public final int top;
         public final int left;
@@ -41,10 +48,21 @@ public class SpriteSheet extends ImageView {
     Offsets sheetOffsets;
     Offsets frameOffsets;
     
+    // The current frame bieng displayed
     int currentFrame;
     
+    // All the possible frames
     Rectangle2D[] frames;
     
+    /**
+     * 
+     * @param sheet - the image to be used
+     * @param frames - all the frames that can be displayed
+     * @param frameWidth - the width of one frame
+     * @param frameHeight - the height of one frame
+     * @param sheetOffsets - the offsets for the entire sheet
+     * @param frameOffsets - the offsets for each frame
+     */
     SpriteSheet(Image sheet, Frame[] frames, int frameWidth, int frameHeight,
             Offsets sheetOffsets, Offsets frameOffsets) {
         super();
@@ -61,7 +79,10 @@ public class SpriteSheet extends ImageView {
         }
         super.setViewport(this.frames[0]);
     }
-    
+    /**
+     * Goes to the desired frame
+     * @param iii - the frame number to go to
+     */
     public void setFrame(int iii) {
         super.setViewport(frames[iii]);
     }

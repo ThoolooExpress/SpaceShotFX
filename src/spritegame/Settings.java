@@ -1,5 +1,11 @@
 package spritegame;
 
+/**
+ * Holds static settings
+ * @author ThoolooExpress
+ */
+
+// TODO : put the settings in a proper config file
 public class Settings {
 
     public static double SCENE_WIDTH = 1920;

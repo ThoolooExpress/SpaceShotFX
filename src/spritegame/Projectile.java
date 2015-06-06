@@ -2,8 +2,12 @@ package spritegame;
 
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import spritegame.Sprite;
 
+/**
+ * Defines a projectile
+ * 
+ * @author ThoolooExpress
+ */
 public class Projectile extends Sprite {
     public Projectile(Pane layer, Image image, double x, double y, double r, double dx, double dy, double dr, double health, double damage) {
         super(layer, image, x, y, r, dx, dy, dr, health, damage);
